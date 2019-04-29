@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://aplinxy9plin.github.io/apexradio/",
+  "homepage": "https://aplinxy9plin.github.io/ApexRadio/",
   "scripts": {
     "start": "cross-env PORT=10888 react-scripts start",
     "build": "react-scripts build",
@@ -29,6 +29,7 @@
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-player": "^1.11.0",
-    "react-sound": "^1.2.0"
+    "react-sound": "^1.2.0",
+    "react-ticker": "^1.1.2"
   }
 }

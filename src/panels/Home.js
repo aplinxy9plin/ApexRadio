@@ -1,5 +1,5 @@
 import React from 'react';
-import { Panel, FormLayout, Slider, Button, Group, Div, PanelHeader, List, Cell, FixedLayout, ScreenSpinner } from '@vkontakte/vkui';
+import { Panel, Button, Group, Div, PanelHeader, List, Cell, FixedLayout, ScreenSpinner } from '@vkontakte/vkui';
 import Icon48Play from '@vkontakte/icons/dist/48/play';
 import Icon48Pause from '@vkontakte/icons/dist/48/pause';
 import ReactPlayer from 'react-player'
@@ -10,8 +10,8 @@ class Home extends React.Component{
 		this.state = {
 			songs: [],
 			value: 24,
-			play: true,
-			play_icon: <Icon48Pause fill="#fff"/>
+			play: false,
+			play_icon: <Icon48Play fill="#fff"/>
 		}
 	}
 	componentDidMount(){
@@ -24,7 +24,7 @@ class Home extends React.Component{
 			})
 			this.props.popout(null)
 		})
-		.catch(err => {
+		.catch(() => {
 			this.setState({
 				songs: {
 					name: "Ошибка загрузки плейлиста",
@@ -49,32 +49,41 @@ class Home extends React.Component{
 				</Group>
 				<FixedLayout vertical="bottom">
 					<ReactPlayer 
+						style={{display: 'none'}}
+						controls={false}
+						fileConfig={{forceAudio: true}}
 						url='http://webcast.apexradio.ru:8000/NvkzMp3' 
 						playing={this.state.play} 
-						volume={this.state.val}
+						volume={this.state.value}
 					/>
-					<div style={{width: "100%", background: "#fff", height: '80px', display: "flex"}}>
-						<FormLayout style={{width: "70%"}}>
+					<Div style={{padding: 0, width: "100%", height: '80px', }}>
+						{/* <FormLayout style={{width: "70%"}}>
 							<Slider
 								min={0}
 								max={1}
-								step={0.01}
-								value={Number(this.state.value)}
+								// step={0.2}
+								value={parseFloat(this.state.value)}
 								onChange={value => this.setState({value})}
 								top="Уровень звука"
 							/>
-						</FormLayout>
+						</FormLayout> */}
+						{/* <div style={{marginTop: "10px", width: "100%"}}>
+							<h1>{this.state.songs.length > 0 ? this.state.songs[0].name : "Загрузка..."}</h1>
+						</div> */}
+						<center>
 						<Div style={{padding: 0}}>
 							<Button 
+								level={this.props.client === 'client_light' ? 'primary' : 'secondary'}
 								onClick={() => this.setState({
 									play: !this.state.play, 
 									play_icon: !this.state.play ? <Icon48Pause fill="#fff"/> : <Icon48Play fill="#fff"/>
 								})} 
-								style={{height: "50px", marginTop: "20px"}} 
+								style={{height: "50px", marginTop: "15px"}} 
 								before={this.state.play_icon}
 							/>
 						</Div>
-					</div>
+						</center>
+					</Div>
 				</FixedLayout>
 				
 			</Panel>
